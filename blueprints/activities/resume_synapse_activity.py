@@ -8,10 +8,6 @@ from azure.core.exceptions import ClientAuthenticationError
 
 bp = df.Blueprint()
 
-
-# def _is_running_locally():
-#     """Check if running locally vs in Azure"""
-#     return os.environ.get("WEBSITE_INSTANCE_ID") is None
 def _get_headers():
     """Get authorization headers (works locally & in Azure)"""
     try:
@@ -31,7 +27,6 @@ def _get_headers():
         logging.error(f"[Synapse] Authentication failed: {str(e)}")
         raise
 
-
 def _get_synapse_urls():
     sub = os.environ["AZURE_SUBSCRIPTION_ID"]
     rg = os.environ["AZURE_RESOURCE_GROUP"]
@@ -49,30 +44,6 @@ def _get_synapse_urls():
         f"{base}?api-version=2021-06-01",
         f"{base}/resume?api-version=2021-06-01"
     )
-
-
-# def _get_headers():
-#     """Get authorization headers - works both locally and in Azure"""
-#     try:
-#         if _is_running_locally():
-#             # Use Azure CLI credential when running locally
-#             logging.info("[Synapse] Using Azure CLI credentials (local)")
-#             credential = AzureCliCredential()
-#         else:
-#             # Use DefaultAzureCredential (Managed Identity) when in Azure
-#             logging.info("[Synapse] Using Managed Identity (Azure)")
-#             credential = DefaultAzureCredential()
-        
-#         token = credential.get_token("https://management.azure.com/.default").token
-#         return {
-#             "Authorization": f"Bearer {token}",
-#             "Content-Type": "application/json"
-#         }
-#     except ClientAuthenticationError as e:
-#         logging.error(f"[Synapse] Authentication failed: {str(e)}")
-#         logging.error("[Synapse] If running locally, make sure you've run 'az login' first")
-#         raise
-
 
 @bp.activity_trigger(input_name="dummy")
 def resume_synapse_activity(dummy=None) -> str:

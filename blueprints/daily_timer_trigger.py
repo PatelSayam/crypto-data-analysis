@@ -10,7 +10,7 @@ INSTANCE_ID = "daily-timer-orchestrator"
 
 
 @bp.timer_trigger(
-    schedule="0 0 7 * * *",
+    schedule="0 40 9 * * *", # second minute hour day-of-month month day-of-week.
     arg_name="timer",
     run_on_startup=False
 )
