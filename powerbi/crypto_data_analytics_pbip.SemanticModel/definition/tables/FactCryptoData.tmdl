@@ -939,6 +939,11 @@ table FactCryptoData
 		formatString: General Date
 		lineageTag: 91f86d1b-ddb0-408e-8084-832774334b69
 
+	measure 'Total Volume' = SUM(FactCryptoData[Volume])
+		lineageTag: 78558b40-e014-4f96-b15d-14102077b215
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column 'Trading Pair'
 		dataType: string
 		lineageTag: e1d090c2-eab5-4b97-9d84-8d0f21b3beec
